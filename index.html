@@ -3,23 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Web Spreadsheet</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Full Excel Web App</title>
+    
+    <!-- Luckysheet CSS CDN -->
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/css/luckysheet.css' />
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #luckysheet {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="toolbar">
-        <h2>Mini Spreadsheet</h2>
-        <button id="saveBtn">Save to Firebase</button>
-    </div>
+    <!-- Yahan poora Excel load hoga -->
+    <div id="luckysheet"></div>
 
-    <div class="table-container">
-        <table id="sheetTable"></table>
-    </div>
+    <!-- Luckysheet Dependencies JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/plugins/js/plugin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luckysheet@latest/dist/js/luckysheet.js"></script>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // Sheet ko initialize karna
+        $(function () {
+            luckysheet.create({
+                container: 'luckysheet', // Div ID jahan sheet banegi
+                title: 'Mera Excel Web App',
+                lang: 'en'
+            });
+        });
+    </script>
 </body>
 </html>
