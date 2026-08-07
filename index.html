@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Web Spreadsheet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="toolbar">
+        <h2>Mini Spreadsheet</h2>
+        <button id="addRowBtn">Add Row</button>
+        <button id="addColumnBtn">Add Column</button>
+        <button id="saveBtn">Save to Firebase</button>
+    </div>
+
+    <div class="table-container">
+        <table id="sheetTable">
+            <!-- Dynamic rows aur columns JavaScript se generate honge -->
+        </table>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
