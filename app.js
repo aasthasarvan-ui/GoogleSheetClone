@@ -1,4 +1,4 @@
-// Firebase Configuration (Apne Firebase project ki details yahan dalein)
+// Apni Firebase configuration yahan daalein (agar firebase use nahi karna toh isko hata bhi sakte hain)
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",
@@ -9,11 +9,15 @@ const firebaseConfig = {
     appId: "YOUR_APP_ID"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// Initialize Firebase safely
+try {
+    firebase.initializeApp(firebaseConfig);
+} catch (e) {
+    console.log("Firebase not initialized properly, but grid will work.");
+}
 
 const table = document.getElementById('sheetTable');
-const rows = 10;
+const rows = 15;
 const cols = 6; // A to F
 
 // Grid generate karne ka function
@@ -38,22 +42,12 @@ function createGrid() {
     table.innerHTML = html;
 }
 
-createGrid();
+// Page load hote hi grid ban jayegi
+window.onload = function() {
+    createGrid();
+};
 
-// Simple Formula Evaluator (Jaise =SUM(A1:A3))
-document.querySelectorAll('.cell-input').forEach(input => {
-    input.addEventListener('change', (e) => {
-        let value = e.target.value;
-        
-        // Agar formula "=SUM" se shuru ho
-        if (value.startsWith('=SUM')) {
-            // Basic logic yahan implement kar sakte hain
-            console.log("Formula detected");
-        }
-    });
-});
-
-// Firebase mein data save karne ka button logic
+// Save button logic
 document.getElementById('saveBtn').addEventListener('click', () => {
     let sheetData = {};
     document.querySelectorAll('.cell-input').forEach(input => {
@@ -62,7 +56,11 @@ document.getElementById('saveBtn').addEventListener('click', () => {
         }
     });
 
-    db.ref('spreadsheet/sheet1').set(sheetData)
-        .then(() => alert('Sheet saved successfully to Firebase!'))
-        .catch((error) => alert('Error: ' + error.message));
+    if(typeof firebase !== 'undefined' && firebase.database) {
+        firebase.database().ref('spreadsheet/sheet1').set(sheetData)
+            .then(() => alert('Sheet saved successfully to Firebase!'))
+            .catch((error) => alert('Error: ' + error.message));
+    } else {
+        alert('Firebase is not configured yet, but your data is in the cells!');
+    }
 });
